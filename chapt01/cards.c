@@ -23,6 +23,6 @@ int main()
         puts("Count has gone up");
     /* Otherwise check if the card was 10, J, Q, or K */
     else if (val == 10)
-        puts("Count has gone down")
+        puts("Count has gone down");
     return 0;
 }
