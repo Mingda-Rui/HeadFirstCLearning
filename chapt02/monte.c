@@ -11,4 +11,10 @@ int main()
     cards[1] = a_card;
     puts(cards);
     return 0;
+
+    /* error: array initializer must be an initializer list or string literal */
+    // char *test = "JDK";
+    // char test2[] = *test;
+    // test2[0] = "A";
+    // puts(test2);
 }
