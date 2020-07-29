@@ -15,6 +15,8 @@ void find_track(char search_for[])
     for (i = 0; i < 5; i++) {
         if (strstr(tracks[i], search_for))
             printf("Track %i: '%s'\n", i, tracks[i]);
+        else
+            printf("searching %s from %s but nothing found\n", search_for, tracks[i]);
     }
 }
 
@@ -22,7 +24,8 @@ int main()
 {
     char search_for[80];
     printf("Search for: ");
-    fgets(search_for, 80, stdin);
+    // fgets(search_for, 80, stdin);
+    scanf("%s", search_for);
     find_track(search_for);
     return 0;
 }
