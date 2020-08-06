@@ -20,7 +20,13 @@ int main(int argc, char *argv[])
     
     assign_file_relative_path_to_holder("spooky.csv");
     // This will create a data stream to read from a file.
-    FILE *in = fopen(tmp_dir_holder, "r");
+    FILE *in;
+    // if there's a problem opening a data stream, 
+    // the fopen() function will return the value 0.
+    if (!(in = fopen(tmp_dir_holder, "r"))) {
+        fprintf(stderr, "Can't open the file.\n")
+        return 1;
+    }
 
     // This will create a data stream to write to a file.
     assign_file_relative_path_to_holder(argv[2]);
