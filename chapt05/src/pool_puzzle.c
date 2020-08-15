@@ -5,7 +5,7 @@ struct fish {
     const char *species;
     int teeth;
     int age;
-}
+};
 
 void catalog(struct fish f)
 {
@@ -15,7 +15,7 @@ void catalog(struct fish f)
 
 void label(struct fish f)
 {
-    printf("Name;%s\nSpecies:5s\n%i years old, %i teeth\n",
+    printf("Name;%s\nSpecies:%s\n%i years old, %i teeth\n",
         f.name, f.species, f.age, f.teeth);
 }
 
