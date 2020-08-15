@@ -16,6 +16,9 @@ void happy_birthday(turtle t)
 void happy_birthday_to_same_turtle(turtle *t)
 {
     (*t).age = (*t).age + 1;
+    // or use this:
+    // t -> age = t -> age + 1;
+    // This means: The age field in the struct that t poitns to.
     printf("Happy Birthday %s! You are now %i years old!\n",
         (*t).name, (*t).age);
 }
