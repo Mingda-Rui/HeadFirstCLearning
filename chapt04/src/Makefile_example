@@ -1,0 +1,11 @@
+# the make file usually is named "makefile" or "Makefile"
+
+# The recipes MUST begin with a tab character
+launch.o: launch.c launch.h thruster.h # There are three RULES.
+    gcc -c launch.c
+
+thruster.o: thruster.h thruster.c
+    gcc -c thruster.c
+
+launch: launch.o thruster.o
+    gcc launch.o thruster.o -o launch
