@@ -13,10 +13,19 @@ void happy_birthday(turtle t)
         t.name, t.age);
 }
 
+void happy_birthday_to_same_turtle(turtle *t)
+{
+    (*t).age = (*t).age + 1;
+    printf("Happy Birthday %s! You are now %i years old!\n",
+        (*t).name, (*t).age);
+}
+
 int main()
 {
     turtle myrtle = {"Myrtle", "Leatherback sea turtle", 99};
     happy_birthday(myrtle);
+    printf("%s's age is now %i\n", myrtle.name, myrtle.age);
+    happy_birthday_to_same_turtle(&myrtle);
     printf("%s's age is now %i\n", myrtle.name, myrtle.age);
     return 0;
 }
