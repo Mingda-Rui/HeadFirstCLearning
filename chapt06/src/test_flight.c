@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "tour.h"
 
 island* create(char *name)
@@ -20,4 +21,6 @@ int main()
     fgets(name, 80, stdin);
     island *p_island1 = create(name);
     p_island0 -> next = p_island1;
+
+    display(p_island0);
 }
