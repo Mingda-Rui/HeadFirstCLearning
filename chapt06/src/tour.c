@@ -1,14 +1,7 @@
-#include<stdio.h>
+#include <stdio.h>
+#include "tour.h"
 
-typedef struct island island;
 void display(island *start);
-
-struct island {
-    char *name;
-    char *opens;
-    char *closes;
-    struct island *next;
-};
 
 void display(island *start)
 {
