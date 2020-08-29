@@ -31,7 +31,8 @@ int main()
     island *i = NULL;
     island *next = NULL;
     char name[80];
-    for(; strcmp(fgets(name, 80, stdin), "\n") != 0; i = next) {
+    for(; fgets(name, 80, stdin) != NULL; i = next) {
+        if (strcmp(name, "\n") == 0) break;
         next = create(name);
         if (start == NULL)
             start = next;
