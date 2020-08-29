@@ -47,7 +47,7 @@ int main()
     start_node->yes = create("Vinny the Spoon");
     node *current;
     do {
-        current = strat_node;
+        current = start_node;
         while (1) {
             if (yes_no(current->question))
             {
@@ -69,14 +69,14 @@ int main()
 
                 /* Make the no-node a copy of this question */
                 node *no_node = create(current->question);
-                current->no - no_node;
+                current->no = no_node;
 
                 /* Then replace this question with the new question */
                 printf("Give me a question that is TRUE for %s but not for %s? ", suspect, current->question);
                 fgets(question, 80, stdin);
-                 current->question = strdup(question);
+                current->question = strdup(question);
 
-                 break;
+                break;
             }
         }
     } while(yes_no("Run again"));
