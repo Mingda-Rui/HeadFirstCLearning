@@ -1,7 +1,32 @@
 #include <stdio.h>
 #include <string.h>
 
-void find()
+int sports_not_bieber(char *s);
+int sports_or_workout(char *s);
+int ns_theater(char *s);
+int arts_theather_or_dining(char *s);
+
+int sports_no_bieber(char *s)
+{
+    return strstr(s, "sports") && !strstr(s, "bieber");
+}
+
+int sports_or_workout(char* s)
+{
+    return strstr(s, "sports") || strstr(s, "working out");
+}
+
+int ns_theater(char *s)
+{
+    return !strstr(s, "NS") && strstr(s, "theater");
+}
+
+int arts_theater_or_dining(char *s)
+{
+    return strstr(s, "art") || strstr(s, "theater") || strstr(s, "dining");
+}
+
+void find(int(*match)(char*))
 {
     int NUM_ADS = 7;
     char *ADS[] = {
@@ -19,7 +44,7 @@ void find()
     puts("------------------------------------");
 
     for (i = 0; i < NUM_ADS; i++) {
-        if (strstr(ADS[i], "sports") && ! strstr(ADS[i], "bieber") ) {
+        if (match(ADS[i])) {
             printf("%s\n", ADS[i]);
         }
     }
@@ -28,5 +53,9 @@ void find()
 
 int main()
 {
-    find();
+    find(sports_no_bieber);
+    find(sports_or_workout);
+    find(ns_theater);
+    find(arts_theater_or_dining);
+    return 0;
 }
