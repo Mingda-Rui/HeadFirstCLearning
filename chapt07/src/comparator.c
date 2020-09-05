@@ -25,7 +25,7 @@ int compare_areas(const void* a, const void* b)
 {
     rectangle* rec_a = (rectangle*)a;
     rectangle* rec_b = (rectangle*)b;
-    int area_a = rec_a->height * rec_a->width;
+    int area_a = rec_a->height * rec_a->width; // foo->bar is equivalent to (*foo).bar
     int area_b = rec_b->height * rec_b->width;
     return area_a - area_b;
 }
