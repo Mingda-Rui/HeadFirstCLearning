@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <errno.h>
+#include <sys/wait.h>
 
 void error(char *msg)
 {
@@ -33,6 +34,11 @@ int main(int argc, char *argv[])
         if (execle("/usr/bin/python", "python", "./rssgossip.py", phrase, NULL, vars) == -1) {
             error("Can't run script");
         }
+    }
+
+    int pid_status;
+    if (waitpid(pid, &pid_status, 0) == -1) {
+        error("Error waiting for child process");
     }
     return 0;
 }
