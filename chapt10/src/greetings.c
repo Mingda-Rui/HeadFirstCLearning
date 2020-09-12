@@ -19,7 +19,7 @@ int catch_signal(int sig, void (*handler) (int))
 
 int main()
 {
-    if (catch_signal(SIGINT, handle_interrupt) == -1) {
+    if (catch_signal(SIGINT, diediedie) == -1) {
         fprintf(stderr, "Can't map the handler");
         exit(2);
     }
