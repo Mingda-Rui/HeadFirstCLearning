@@ -4,7 +4,7 @@
 
 void diediedie(int sig)
 {
-    puts("Goodbye cruel world...\n");
+    puts("\nGoodbye cruel world...\n");
     exit(1);
 }
 
