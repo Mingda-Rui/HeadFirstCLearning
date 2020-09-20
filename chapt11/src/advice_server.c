@@ -29,6 +29,18 @@ int main(int argc, char *argv[])
     name.sin_family = PF_INET;
     name.sin_port = (in_port_t)htons(30000);
     name.sin_addr.s_addr = htonl(INADDR_ANY);
+
+    // When you bind a socket to a port, the operating system will
+    // prevent anything else from rebinding to it for the next 30
+    // seconds or so, and that includes the program that bound the port
+    // in the first place. To get around the problem, you just need to set
+    // an potion on the socket before you bind it:
+    // You need an int variable to store the option.
+    // Setting it to 1 means "Yes, reuse the port."
+    int reuse = 1;
+    if (setsockopt(listener_d, SOL_SOCKET, SO_REUSEADDR, (char *)&reuse, sizeof(int)) == -1)
+        error("Can't set the reuse option on the socket");
+
     if( bind(listener_d, (struct sockaddr *) &name, sizeof(name)) == -1 )
         error("Can't bind the port");
 
