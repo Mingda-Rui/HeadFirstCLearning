@@ -4,6 +4,9 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include <errno.h>
+
+void error(char *msg);
 
 int main(int argc, char *argv[])
 {
@@ -26,7 +29,8 @@ int main(int argc, char *argv[])
     name.sin_family = PF_INET;
     name.sin_port = (in_port_t)htons(30000);
     name.sin_addr.s_addr = htonl(INADDR_ANY);
-    int c = bind(listener_d, (struct sockaddr *) &name, sizeof(name));
+    if( bind(listener_d, (struct sockaddr *) &name, sizeof(name)) == -1 )
+        error("Can't bind the port");
 
     // 2. listen
     // if (listen(listener_d, 10) == -1
@@ -49,4 +53,10 @@ int main(int argc, char *argv[])
         close(connect_d);
     }
     return 0;
+}
+
+void error(char *msg)
+{
+    fprintf(stderr, "%s: %s\n", msg, strerror(errno));
+    exit(1);
 }
