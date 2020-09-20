@@ -17,10 +17,12 @@ void error(char *msg);
 int read_in(int socket, char *buf, int len);
 int catch_signal(int sig, void (*handler) (int));
 int main_md(int argc, char *argv[]);
+int main_hfc(int argc, char *argv[]);
 
 int main(int argc, char *argv[])
 {
-    main_md(argc, argv);
+    // main_md(argc, argv);
+    main_hfc(argc, argv);
 }
 
 int main_md(int argc, char *argv[])
@@ -62,6 +64,41 @@ int main_md(int argc, char *argv[])
         char *silly_question = "Oscar silly question, you get a silly answer";
         if (say(connect_d, silly_question) == -1)
             error("Wrong silly question!");
+        close(connect_d);
+    }
+    return 0;
+}
+
+int main_hfc(int argc, char *argv[])
+{
+    if (catch_signal(SIGINT, handle_shutdown) == -1)
+        error("Can't set the interrupt handler");
+    listener_d = open_listener_socket();
+    bind_to_port(listener_d, 30000);
+    if (listen(listener_d, 10) == -1)
+        error("Can't listen");
+    struct sockaddr_storage client_addr;
+    unsigned int address_size = sizeof(client_addr);
+    puts("Waiting for connection");
+    char buf[255];
+    while(1) {
+        int connect_d = accept(listener_d, (struct sockaddr *)&client_addr, &address_size);
+        if (connect_d == -1)
+            error("Can't open scondary socket");
+        if (say(connect_d, "Internet Knock-knock Protocol Server\r\nVersion I.O\r\nKnock!Knock!\r\n> ") != -1) {
+            read_in(connect_d, buf, sizeof(buf));
+            if( strncasecmp("Who's there?", buf, 12))
+                say(connect_d, "You should say 'Who's there?'!");
+            else {
+                if (say(connect_d, "Oscar\r\n> ") != -1) {
+                    read_in(connect_d, buf, sizeof(buf));
+                    if (strncasecmp("Oscar who?", buf, 10))
+                        say(connect_d, "You should say 'Oscar who?'!\r\n");
+                    else
+                        say(connect_d, "Oscar silly question, you get a silly answer\r\n");
+                }
+            }
+        }
         close(connect_d);
     }
     return 0;
